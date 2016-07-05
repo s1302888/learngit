@@ -1,0 +1,51 @@
+<div ng-controller="GetCdbfeUrlCtrl">
+  <form name="changeDate" novalidate>
+    <div class="condition_area">
+      <div class="condition_detail_left">
+        <div ng-repeat="item in result ">
+          <a ng-href="{{item.url}}" target="_Blank">{{item.url}}</a> ->{{item.back}}
+        </div>
+      </div>
+    </div>
+  </form>
+  <div class="clear">
+  </div>
+  <div class="Layer1">
+    <hr align="center" size="1" color="#aaaaaa" />
+  </div>
+  <div>
+    <textarea rows="10" cols="50" readonly>
+更新
+20151118 :
+１、追加【印刷生成】标签，用来生成cdbfe印刷文件
+２、将DTI SIM API链接移到了【常用连接】里
+
+20150923 :
+１、【覆盖代码】追加【覆盖uss】
+２、增加留言板功能
+
+20150714 :
+１、追加【常用连接】标签
+
+20150623 :
+１、优化、调整代码结构
+２、部分menu切换不会清除数据（版本比较，抽取db数据，mst表查询，命令生成）
+３、抽取DB数据 追加自动复制功能
+４、倒时间追加参数，月为单位 （例 2：往后两个月，-3：往前三个月）
+５、抽取DB数据 追加契约番号检索功能
+        </textarea>
+    <textarea rows="10" cols="40" ng-model="message_board" readonly></textarea>
+    <input type="text" ng-model="message" placeholder="建议&bug" />
+    <input type="button" ng-click="chat()" value="提交" />
+  </div>
+  <div class="result_area" ng-show="showResult==1">
+  </div>
+  <div class="result_area" ng-show="showResult==999">
+    <div class="result_detail">
+      失败啦
+    </div>
+    <div class="result_detail">
+      {{err_msg}}
+    </div>
+  </div>
+</div>

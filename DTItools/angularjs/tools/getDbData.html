@@ -1,0 +1,116 @@
+<div ng-controller="GetDbDataCtrl">
+  <form name="step1" novalidate>
+    <div class="alert_autohide" ng-show="ctrl_flg.msg_flg">
+      {{msg}}
+    </div>
+    <div class="main">
+      <div class="tableField" ng-repeat="num in saba_list  track by $index">
+        <fieldset>
+          <legend>{{num}}</legend>
+          <list-box baselist="saba[num].table_list_base" list="saba[num].table_list"></list-box>
+        </fieldset>
+      </div>
+      <div class="paramField">
+        <fieldset style="height:150px">
+          <legend>参数</legend>
+          <div class="a3">
+            <label>
+              <input type="radio" ng-model="seltype" value="cust">cust</label>
+            <label>
+              <input type="radio" ng-model="seltype" value="cont">cont</label>
+            </br>
+            <span ng-show="seltype=='cust'">お客様ID：</span><span ng-show="seltype=='cont'">契約番号：</span>
+            <textarea rows="3" style="width:150px" id="condition_list" ng-model="condition_list"></textarea>
+          </div>
+          <div class="btn_area">
+            <input type="button" ng-click="next()" value="提取">
+            <input type="button" clip-copy="copysource" clip-click="copy();showmsg('已复制到剪贴板')" value="复制" />
+          </div>
+        </fieldset>
+        <fieldset style="height:70px;width:190px;">
+          <legend>倒时间</legend>
+          <div class="a3">
+            <input type="text" ng-model="customer_id" placeholder="お客様ID">
+            </br>
+            </br>
+            月：
+            <input type="text" ng-model="months" name="months" ng-pattern="/^-?\d+$/" size="2">
+            <input type="button" ng-click="add_months()" value="斗转星移">
+          </div>
+        </fieldset>
+      </div>
+      <div class="btn_area">
+        <input type="checkbox" ng-model="ctrl_flg.view_flg">预览
+        <input type="checkbox" ng-model="ctrl_flg.pro_flg">高级
+        <input type="checkbox" ng-model="ctrl_flg.mst_flg">MST表
+      </div>
+      <div class="clear"></div>
+      <div ng-if="ctrl_flg.view_flg || ctrl_flg.pro_flg">
+        <table>
+          <span style="font-weight:bold;">USS</span>
+          <table class="detail_table" ng-repeat="num in saba.uss.result_data  track by $index">
+            <tr>
+              <th>{{num.table_name}}</th>
+              <th ng-if="ctrl_flg.pro_flg">
+                <select name="cond1" ng-model="num.filter.cond1" ng-options="col for col in num.cols">
+                  <option value="" default>-----</option>
+                </select>
+              </th>
+              <th ng-if="ctrl_flg.pro_flg">
+                <input style="height: 14px" type="text" ng-model="num.filter.val1">
+              </th>
+            </tr>
+            <tr ng-if="ctrl_flg.pro_flg">
+              <th ng-repeat="col in num.cols  track by $index " ng-click="orderSet(num,col)">{{col}}
+                <div ng-show="orderStatus(num,col) == '-'">▼</div>
+                <div ng-show="orderStatus(num,col) == '+'">▲</div>
+                <div ng-show="orderStatus(num,col) == '1'">●</div>
+                <div ng-show="orderStatus(num,col) == '0'">□</div>
+              </th>
+            </tr>
+            <tr ng-if="!ctrl_flg.pro_flg">
+              <th ng-repeat="col in num.cols  track by $index ">{{col}}</th>
+            </tr>
+            <tr ng-if="ctrl_flg.pro_flg" ng-repeat="dat in num.data | orderBy:orderGet(num) |myfilter:num.filter.cond1:num.filter.val1">
+              <td ng-repeat="d in num.cols  track by $index">{{dat[d]}}</td>
+            </tr>
+            <tr ng-if="!ctrl_flg.pro_flg" ng-repeat="dat in num.data ">
+              <td ng-repeat="d in num.cols  track by $index">{{dat[d]}}</td>
+            </tr>
+          </table>
+          <span style="font-weight:bold;">CDB</span>
+          <table class="detail_table" ng-repeat="num in saba.cdb.result_data  track by $index">
+            <tr>
+              <th>{{num.table_name}}</th>
+              <th ng-if="ctrl_flg.pro_flg">
+                <select name="cond1" ng-model="num.filter.cond1" ng-options="col for col in num.cols">
+                  <option value="" default>-----</option>
+                </select>
+              </th>
+              <th ng-if="ctrl_flg.pro_flg">
+                <input style="height: 14px" type="text" ng-model="num.filter.val1">
+              </th>
+            </tr>
+            <tr ng-if="ctrl_flg.pro_flg">
+              <th ng-repeat="col in num.cols  track by $index " ng-click="orderSet(num,col)">{{col}}
+                <div ng-show="orderStatus(num,col) == '-'">▼</div>
+                <div ng-show="orderStatus(num,col) == '+'">▲</div>
+                <div ng-show="orderStatus(num,col) == '1'">●</div>
+                <div ng-show="orderStatus(num,col) == '0'">□</div>
+              </th>
+            </tr>
+            <tr ng-if="!ctrl_flg.pro_flg">
+              <th ng-repeat="col in num.cols  track by $index ">{{col}}</th>
+            </tr>
+            <tr ng-if="ctrl_flg.pro_flg" ng-repeat="dat in num.data | orderBy:orderGet(num) |myfilter:num.filter.cond1:num.filter.val1">
+              <td ng-repeat="d in num.cols  track by $index">{{dat[d]}}</td>
+            </tr>
+            <tr ng-if="!ctrl_flg.pro_flg" ng-repeat="dat in num.data ">
+              <td ng-repeat="d in num.cols  track by $index">{{dat[d]}}</td>
+            </tr>
+          </table>
+        </table>
+      </div>
+    </div>
+  </form>
+</div>

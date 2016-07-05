@@ -1,0 +1,62 @@
+<div ng-controller="GetVerNoCtrl">
+  <div class="condition_area">
+    <div class="condition_detail_left">
+      <textarea rows="10" style="width:200px" id="ver_list" ng-model="ver_list" placeholder="commit log">
+            </textarea>
+      <textarea rows="10" style="width:200px" id="file_list" ng-model="file_list" placeholder="文件列表">
+            </textarea>
+      <div class="clear">
+        <input type="button" ng-click="get_ver_no()" id="getVerNo" value="提取版本号">
+        <input type="button" ng-click="transform4commit()" id="transform" value="提取commit文件">
+      </div>
+    </div>
+    <div class="condition_detail_left">
+      <div class="text_area">
+        <textarea rows="10" style="width:200px" id="format" ng-model="format" placeholder="cmd format">
+                </textarea>
+      </div>
+      <div class="text_area">
+        <div class="padding_2">
+          <input type="button" ng-click="default1()" id="default1" value="merge tag">
+        </div>
+        <div class="padding_2">
+          <input type="button" ng-click="default2()" id="default2" value="commit改修">
+        </div>
+        <div class="padding_2">
+          <input type="button" ng-click="default3()" id="default3" value="commit新规">
+        </div>
+        <div class="padding_2">
+          </br>
+        </div>
+        <div class="padding_2">
+          <input type="button" ng-click="clear()" id="default4" value="清除">
+        </div>
+        <div class="padding_2">
+          <input type="button" ng-click="make_cmd()" id="makeCmd" value="生成命令">
+        </div>
+      </div>
+    </div>
+    <div class="condition_detail_left">
+      <div>
+        参数
+        <div ng-repeat="argument in arg_list  track by $index">
+          参数{{$index+1}}
+          <input style="height: 14px" type="text" ng-model="argument.arg"> {{argument.note}}
+        </div>
+        {{note}}
+        <input style="height: 14px" type="text" ng-model="replaceFlg">
+        <input type="button" ng-click="add_argument()" id="addArgument" value="+">
+        <input type="button" ng-click="delete_argument()" id="deleteArgument" value="-">
+      </div>
+    </div>
+  </div>
+  <div class="clear">
+  </div>
+  <div class="Layer1">
+    <hr align="center" size="1" color="#aaaaaa" />
+  </div>
+  <div class="result_area">
+    <textarea rows="19" style="width:1200px" id="result" ng-model="result" placeholder="result">
+        </textarea>
+  </div>
+</div>

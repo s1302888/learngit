@@ -1,0 +1,96 @@
+<div ng-controller="GetMstDataCtrl">
+  <div class="main">
+    </br>
+    <span>MASTER表数据查询</span>
+    <form name="fmst" novalidate>
+      <table>
+        <tr>
+          <td>
+            <label>
+              <input type="radio" name="show_master" ng-model="formdata.show_master" required value="plan"> 检索プランマスタ表数据
+            </label>
+            </br>
+            <label>
+              <input type="radio" name="show_master" ng-model="formdata.show_master" required value="discount"> 检索減額情報マスタ表数据
+            </label>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <span class="warn" ng-if="show_err && fmst.show_master.$error.required">必须</span>
+          </td>
+        </tr>
+      </table>
+      <table ng-if="formdata.show_master=='plan'">
+        <tbody>
+          <tr>
+            <td colspan="2"><span>※请输入相应的值。</span></td>
+          </tr>
+          <tr>
+            <td>PLAN_CD</td>
+            <td>
+              <input type="text" name="plan_cd" ng-pattern="/^([0-9A-Z]{8},)*([0-9A-Z]{8})$/" required ng-model="formdata.plan_cd">
+            </td>
+          </tr>
+          <tr>
+            <td colspan="2">
+              <span class="warn" ng-if="show_err && fmst.plan_cd.$error.required">必须</span>
+              <span class="warn" ng-if="show_err && fmst.plan_cd.$error.pattern">格式不对</span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <table ng-if="formdata.show_master=='discount'">
+        <tbody>
+          <tr>
+            <td colspan="2"><span>※请选择要检索的主KEY输入相应的值。</span></td>
+          </tr>
+          <tr>
+            <td>プランコード</td>
+            <td>
+              <input type="text" name="plan_cd" ng-pattern="/^([0-9A-Z]{8},)*([0-9A-Z]{8})$/" ng-model="formdata.plan_cd">
+            </td>
+          </tr>
+          <tr>
+            <td colspan="2"> <span class="warn" ng-if="show_err && fmst.plan_cd.$error.pattern">格式不对</span></td>
+          </tr>
+          <tr>
+            <td>減額種別</td>
+            <td>
+              <input type="text" name="disc_type" ng-pattern="/^([0-9]{2},)*([0-9]{2})$/" ng-model="formdata.disc_type">
+            </td>
+          </tr>
+          <tr>
+            <td colspan="2"> <span class="warn" ng-if="show_err && fmst.disc_type.$error.pattern">格式不对</span></td>
+          </tr>
+          <tr>
+            <td>減額種別コード</td>
+            <td>
+              <input type="text" name="disc_cd" ng-pattern="/^([0-9A-Z]{3},)*([0-9A-Z]{3})$/" ng-model="formdata.disc_cd">
+            </td>
+          </tr>
+          <tr>
+            <td colspan="2"> <span class="warn" ng-if="show_err && fmst.disc_cd.$error.pattern">格式不对</span></td>
+          </tr>
+        </tbody>
+      </table>
+      {{aaa}}
+      <br>
+      <button ng-click="search2()">检索数据</button>
+    </form>
+    <div class="clear"></div>
+    <table>
+      <span>MASTER表数据表示</span>
+      <table class="detail_table" id="mst_table" ng-repeat="num in result_data  track by $index">
+        <tr>
+          <th>{{num.table_name}}</th>
+        </tr>
+        <tr>
+          <th ng-repeat="col in num.cols  track by $index ">{{col}}</th>
+        </tr>
+        <tr ng-repeat="dat in num.data ">
+          <td ng-repeat="d in num.cols  track by $index">{{dat[d]}}</td>
+        </tr>
+      </table>
+  </div>
+</div>

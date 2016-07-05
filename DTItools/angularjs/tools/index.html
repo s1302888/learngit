@@ -1,0 +1,59 @@
+<!doctype html>
+<html ng-app="myapp">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>CDB日常作業</title>
+
+<head>
+  <link href="css/account.css" rel="stylesheet" type="text/css" media="all" />
+  <script src="js/common.js"></script>
+  <script src="js/date.js"></script>
+  <script src="lib/js/angular.js"></script>
+  <script src="lib/ZeroClipboard/ZeroClipboard.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/c_main.js"></script>
+  <script src="js/s_getVerNo.js"></script>
+  <script src="js/c_getVerNo.js"></script>
+  <script src="js/c_getDbData.js"></script>
+  <script src="js/s_getDbData.js"></script>
+  <script src="js/s_csvCompareTools.js"></script>
+  <script src="js/c_csvCompareTools.js"></script>
+  <script src="js/s_changeDate.js"></script>
+  <script src="js/c_changeDate.js"></script>
+  <script src="js/s_chDocumentRoot.js"></script>
+  <script src="js/c_chDocumentRoot.js"></script>
+  <script src="js/s_getCdbfeUrl.js"></script>
+  <script src="js/c_getCdbfeUrl.js"></script>
+  <script src="js/s_deployServer.js"></script>
+  <script src="js/c_deployServer.js"></script>
+  <script src="js/c_getMstData.js"></script>
+  <script src="js/s_getMstData.js"></script>
+  <script src="js/s_message.js"></script>
+  <script src="js/s_getprint_file.js"></script>
+  <script src="js/c_getprint_file.js"></script>
+  <script src="lib/ng-clip/ng-clip.js"></script>
+</head>
+
+<body ng-controller="MainCtrl">
+  <loading></loading>
+  <a href="http://172.16.77.50/toolsold/regular_work.php">返回老版</a>
+  <div class="main">
+    <div class="menu_area">
+      <a href="#" class="tag" ng-repeat="menu in menus">
+        <div ng-class="{true: 'menu_tag_p', false: 'menu_tag'}[tag[menu.key] == true ]" ng-click="pageShow(menu.key)">
+          {{menu.text}}
+        </div>
+      </a>
+      <a href="#" class="tag">
+        <div class="line_tag line_tag_clear">
+        </div>
+      </a>
+    </div>
+    <div class="clear">
+    </div>
+    <div class="page_area">
+      <div ng-repeat="menu in menus" ng-if="!menu.init || tag[menu.key]" ng-show="tag[menu.key]" ng-include="menu.tmpl"></div>
+    </div>
+  </div>
+</body>
+
+</html>

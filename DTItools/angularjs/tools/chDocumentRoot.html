@@ -1,0 +1,50 @@
+<div ng-controller="ChDocumentRootCtrl">
+  <div class="btn_area">
+    <a ng-click="getDocumentRoot('160')" ng-class="{true: 'button_selected', false: 'button'}[saba == '160' ]">
+            160
+        </a>
+  </div>
+  <div class="btn_area">
+    <a ng-click="getDocumentRoot('161')" ng-class="{true: 'button_selected', false: 'button'}[saba == '161' ]">
+            161
+        </a>
+  </div>
+  <div class="clear">
+  </div>
+  <div class="Layer1">
+    <hr align="center" size="1" color="#aaaaaa" />
+  </div>
+  <div class="result_area" ng-show="showResult==1">
+    <div class="result_detail">
+      服务器：{{saba}}
+    </div>
+    <div class="result_detail">
+      现在是：{{result}}
+    </div>
+    <div class="result_detail">
+      切换成：
+      <select name="type" ng-model="type">
+        <option ng-if="result=='fbmsign'" value="docs" selected>
+          normal
+        </option>
+        <option ng-if="result=='normal'" value="fbm" selected>
+          fbmsign
+        </option>
+      </select>
+    </div>
+    <input type="button" ng-click="setDocumentRoot()" value="切换" />
+  </div>
+  <div class="result_area" ng-show="showResult==2">
+    <div class="result_detail">
+      成功
+    </div>
+  </div>
+  <div class="result_area" ng-show="showResult==999">
+    <div class="result_detail">
+      失败啦
+    </div>
+    <div class="result_detail">
+      {{err_msg}}
+    </div>
+  </div>
+</div>
